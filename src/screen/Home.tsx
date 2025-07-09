@@ -88,8 +88,7 @@ const Home = () => {
     <View style={styles.container}>
       <CustomeHeader
         title="Home"
-        // leftSideButtonImage={images.logobackButton}
-        // showBackButton={true}
+       
       />
       <ScrollView showsVerticalScrollIndicator={false}>
         <CustomeProductDetails
