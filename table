@@ -1,0 +1,27 @@
+<!-- // const list = myData.map(item => {
+//   return (
+//     <View style={{ flexDirection: 'row'}}>
+//       <View style={{ flex: 1}}>
+//         {item.name.map((name, i) => (
+//           <Text>{i + 1}</Text>
+//         ))}
+//       </View>
+//       <View style={{ flex: 1}}>
+//         {item.name.map((name, i) => (
+//           <Text>{name}</Text>
+//         ))}
+//       </View>
+//       <View style={{ flex: 1}}>
+//         {item.Quality.map((quality, i) => (
+//           <Text>{quality}</Text>
+//         ))}
+//       </View>
+//       <View style={{ flex: 1}}>
+//         {item.Quantity.map((quantity, i) => (
+//           <Text>{`${quantity} Bags`}</Text>
+//         ))}
+//       </View>
+//     </View>
+//   );
+// });
+ -->

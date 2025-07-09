@@ -1,0 +1,433 @@
+// import React, { useState, useEffect } from 'react';
+// import {
+//   Dimensions,
+//   ScrollView,
+//   StyleSheet,
+//   View,
+// } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
+// import { StackNavigationProp } from '@react-navigation/stack';
+// import { RootStackParamList } from '../navigation/types'; 
+// import CustomeProductDetails from '../component/CustomeProductDetails';
+// import images from '../theme/Images';
+// import Colors from '../theme/Colors';
+// import Strings from '../theme/Strings';
+
+// const { width } = Dimensions.get('window');
+
+// type NavigationProps = StackNavigationProp<RootStackParamList, 'OnBoarding'>;
+
+// const Home = () => {
+//   const navigation = useNavigation<NavigationProps>();
+
+//   // Store full product data
+//   const [allData, setAllData] = useState<Array<{ 
+//     id: number;
+//     producName: string;
+//     image: any;
+//     descriptionProduct: string;
+//     priceSell: number;
+//     price: number;
+//     offer: number;
+//   }>>([]);
+
+//   useEffect(() => {
+//     const initialData = [
+//       { id: 1, producName: 'Pink Babies', image: images.logo8, descriptionProduct: 'Teddy Bear for babies', priceSell: 40.92, price: 65.98, offer: 35 },
+//       { id: 2, producName: 'Blue Dragon', image: images.logo9, descriptionProduct: 'Gaming Desk', priceSell: 250.0, price: 500.0, offer: 50 },
+//       { id: 3, producName: 'Red Toy Car', image: images.logo8, descriptionProduct: 'Kids Toy Car', priceSell: 30.92, price: 50.98, offer: 40 },
+//       { id: 4, producName: 'Gaming Keyboard', image: images.logo9, descriptionProduct: 'RGB Keyboard', priceSell: 80.0, price: 120.0, offer: 33 },
+//     ];
+//     setAllData(initialData); // Load only once
+//   }, []);
+
+//   // Filters based on different conditions
+//   const flashSaleData = allData.filter(item => item.offer >= 30); // Example: Show products with offer ≥ 30%
+//   const newestArrivalsData = allData.filter(item => item.id % 2 === 0); // Example: Even ID products are 'new arrivals'
+
+//   return (
+//     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+//       <CustomeProductDetails
+//         leftHeaderText={Strings.flash}
+//         rightButtonText={Strings.viewAll}
+//         imageRightButton={images.logo10}
+//         dataofArray={flashSaleData} // Use filtered data
+//       />
+//       <CustomeProductDetails
+//         leftHeaderText={Strings.newestArrivals}
+//         rightButtonText={Strings.viewAll}
+//         imageRightButton={images.logo10}
+//         dataofArray={newestArrivalsData} // Use another filtered data
+//       />
+//     </ScrollView>
+//   );
+// };
+
+// export default Home;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     backgroundColor: Colors.white,
+//     flex: 1,
+//   },
+// });
+
+
+
+// container: {
+//     width: 163,
+//     height: 267,
+//     borderWidth: 1,
+//     borderColor: Colors.white,
+//     borderRadius: 5,
+//     backgroundColor: "white", // Ensure background color is set
+  
+//     // iOS shadow styles (ignored on Android)
+//     shadowColor: Colors.black,
+//     shadowOpacity: 0.2,
+//     shadowRadius: 5,
+//     shadowOffset: {
+//       height: 2,
+//       width: 1,
+//     },
+  
+//     // Android shadow styles
+//     elevation: 5, // Increase this for a stronger shadow
+  
+//     marginLeft: "2%",
+//     marginTop: "7%",
+//   },
+  
+
+//const loginUser = async () => {
+//     if (!isCheckValid()) return;
+
+//     try {
+//       const userCredential = await auth().signInWithEmailAndPassword(email, pass);
+//       const user = userCredential.user;
+  
+//       console.log("✅ Login Successful:", email);
+  
+//       if (!user) {
+//         console.error("❌ No user found!");
+//         return;
+//       }
+  
+//       const idToken = await user.getIdToken(true);
+//       console.log("🛡️ ID Token:", idToken);
+  
+//       const response = await fetch("https://yourapi.com/api/login", {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${idToken}`,
+//         },
+//         body: JSON.stringify({
+//           email: email,
+//           password: pass,
+//         }),
+//       });
+  
+//       if (!response.ok) {
+//         throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+//       }
+  
+//       const jsonResponse = await response.json();
+//       console.log("✅ API Response:", jsonResponse);
+  
+//       // Save login status
+//       dispatch(setIsLogin(true));
+//       navigation.dispatch(
+//         CommonActions.reset({
+//           index: 0,
+//           routes: [{ name: "BottomNav" }],
+//         })
+//       );
+//     } catch (error) {
+//       console.error("❌ Login Error:", error.message);
+//       setInvalid("Invalid Email or Password");
+//     }
+//   };
+
+  {/* {
+    isLogin ? <Stack.Screen name="DrawerTab" component={DrawerTab}  /> 
+    :  
+    <Stack.Screen name="Login" component={Login}  />
+    <Stack.Screen name="SignUp" component={SignUp}  />
+    <Stack.Screen name="DrawerTab" component={DrawerTab}  /> 
+
+  } */}
+
+//   import { StyleSheet, Text, View } from "react-native";
+// import React, { useEffect } from "react";
+// import CustomeHeader from "../component/CustomeHeader";
+// import Colors from "../theme/Colors";
+// import { useToast } from "react-native-toast-notifications";
+
+// const Cart = () => {
+//   const toast = useToast();
+
+//   useEffect(() => {
+//     toast.show("Hello World", {
+//       type: "success",  // Can be 'success', 'error', 'warning', etc.
+//       placement: "top",
+//       duration: 3000,
+//     });
+//   }, []);
+
+//   return (
+//     <View style={styles.container}>
+//       <CustomeHeader title="Cart" />
+//       <Text>Cart Screen</Text>
+//     </View>
+//   );
+// };
+
+// export default Cart;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     backgroundColor: Colors.white,
+//     flex: 1,
+//   },
+// });
+
+
+// ActivityIndicator cutsome with photos :
+
+// <View style={styles.circularImageContainer}>
+// <Image
+//   source={require('./path/to/your/image.png')} // Replace with your image path
+//   style={styles.circularImage}
+// />
+// </View>
+
+// const styles = StyleSheet.create({
+//   circularImageContainer: {
+//     width: 100, // Adjust as needed
+//     height: 100,
+//     borderRadius: 50, // Half of width/height for a circle
+//     overflow: 'hidden', // Hide any part of the image that goes beyond the circle
+//     backgroundColor: 'white', // Optional: Set a background color
+//   },
+//   circularImage: {
+//     width: '100%',
+//     height: '100%',
+//     resizeMode: 'cover', // Or 'contain' depending on your image
+//   },
+// });
+  
+
+
+
+// const persistConfig = {
+//   key: 'root',
+//   storage: AsyncStorage,
+// };
+// const rootReducer = combineReducers({
+//   user: userReducer,
+//   comment: commentReducer,
+// });
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: getDefaultMiddleware =>
+//     getDefaultMiddleware({
+//       serializableCheck: false,
+//     }),
+// });
+
+// export type RootState = ReturnType<typeof store.getState>;
+// export type AppDispatch = typeof store.dispatch;
+// export const persistor = persistStore(store)
+
+
+
+// const handleLogoutFunctionm = async () => {
+//   try {
+//     const user = firebase.auth().currentUser;
+//     let idTokens = "";
+
+//     if (user) {
+//       idTokens = await user.getIdToken();
+//       console.log("✅ Retrieved ID Token before sign out:", idTokens);
+//     } else {
+//       console.log("⚠️ No user found before logout");
+//       showCustomToast({
+//         type: "error",
+//         text1: "Logout Failed",
+//         text2: "No authenticated user",
+//       });
+//       return;
+//     }
+
+//     // 🔹 Call Logout API with ID Token
+//     try {
+//       const response = await ApiServices({
+//         apilasturlname: "logout",
+//         idToken: idTokens, // Ensure you're passing the token
+//       });
+
+//       console.log("✅ Logout API Response:", response);
+//     } catch (apiError) {
+//       console.error("❌ Logout API Failed:", apiError);
+//       showCustomToast({
+//         type: "error",
+//         text1: "Logout Failed",
+//         text2: "API error, please try again",
+//       });
+//     }
+
+//     // 🔹 Now sign out from Firebase
+//     await auth().signOut();
+//     console.log("✅ Firebase Logout Successful");
+
+//     // 🔹 Navigate to Login Screen
+//     navigation.dispatch(
+//       CommonActions.reset({
+//         index: 0,
+//         routes: [{ name: "Login" }],
+//       })
+//     );
+//   } catch (error: any) {
+//     console.error("❌ Logout Error:", error);
+//     showCustomToast({
+//       type: "error",
+//       text1: "Logout Failed",
+//       text2: error.message || "Unknown error occurred",
+//     });
+//   }
+// };
+
+
+// import React, { useState } from "react";
+// import { ActivityIndicator, Image, View } from "react-native";
+// import FastImage from "react-native-fast-image";
+// import Colors from "../theme/Colors";
+
+// const [isError, setIsError] = useState(false);
+
+// <View style={styles.imagecontainer}>
+//   {isError ? (
+//     <Image style={styles.imageStyle} source={require("../assets/Images/image.png")} />
+//   ) : (
+//     <FastImage
+//       style={styles.imageStyle}
+//       source={{ uri: image, priority: FastImage.priority.high }}
+//       resizeMode={FastImage.resizeMode.contain}
+//       onError={() => setIsError(true)}
+//     />
+//   )}
+// </View>;
+
+
+// import React from "react";
+// import { View, FlatList } from "react-native";
+// import CustomeCardComponent from "./CustomeCardComponent";
+
+// const productList = [
+//   {
+//     image: "https://via.placeholder.com/150",
+//     headerText: "Product 1",
+//     descriptionText: "This is product 1",
+//     price: 100,
+//     priceSell: 80,
+//     offer: "20% Off",
+//   },
+//   {
+//     image: "https://via.placeholder.com/150",
+//     headerText: "Product 2",
+//     descriptionText: "This is product 2",
+//     price: 200,
+//     priceSell: 150,
+//     offer: "25% Off",
+//   },
+// ];
+
+// const ProductScreen = () => {
+//   return (
+//     <View>
+//       <FlatList
+//         data={productList}
+//         keyExtractor={(item, index) => index.toString()}
+//         renderItem={({ item, index }) => (
+//           <CustomeCardComponent product={item} index={index} />
+//         )}
+//       />
+//     </View>
+//   );
+// };
+
+// export default ProductScreen;
+
+
+// <View style={styles.imageContainer}>
+// {product?.main_image ? (
+//   <Image
+//     source={{ uri: product?.main_image }}
+//     style={styles.imagestyle}
+//   />
+// ) : (
+//   <View>
+//     <Text>Loading Image...</Text>
+//   </View>
+// )}
+// </View>
+
+
+
+// Parent Component
+// const ParentComponent = () => {
+//   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+
+//   return (
+//     <>
+//       {[1, 2, 3].map((id) => (
+//         <PickupLocation
+//           key={id}
+//           selectOption={selectedOption === id}
+//           onSelect={() => setSelectedOption(id)}
+//         />
+//       ))}
+//     </>
+//   );
+// };
+
+// // Child Component
+// const PickupLocation: React.FC<{
+//   selectOption?: boolean;
+//   onSelect: () => void;
+// }> = ({ selectOption, onSelect }) => {
+//   return (
+//     <TouchableOpacity onPress={onSelect} style={styles.container}>
+//       <View style={[styles.selectButtonContainer]}>
+//         {selectOption && <View style={styles.selectButton} />}
+//       </View>
+//       <View style={styles.addressContainer}>
+//         <Text style={styles.countryText}>OSWEGO, NY, USA</Text>
+//         <Text style={styles.addressText}>
+//           755 E Seneca St, Oswego, NY 1312
+//         </Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
+
+
+// const getDeliveryAmountApi = async (productIds: string[]) => {
+//   setLoading(true);
+//   try {
+//     const response = await ApiServices({
+//       method: "GET",
+//       apilasturlname: `order/calculate/shipping?ids=${JSON.stringify(productIds)}&offer="0"`,
+//       access_token: userAccessToken,
+//     });
+//     console.log("Delivery API Response:", response.payload);
+//   } catch (error) {
+//     console.log("Cart API error:", error);
+//   } finally {
+//     setLoading(false);
+//   }
+// }
+

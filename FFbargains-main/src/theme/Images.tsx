@@ -1,0 +1,27 @@
+const images = {
+  logo1: require("../assets/Images/online-shopping-app.png"),
+  logo2: require("../assets/Images/shopping-day.png"),
+  logo3: require("../assets/Images/hide.png"),
+  logo4: require("../assets/Images/image2.png"),
+  logo5: require("../assets/Images/AppleBlue.png"),
+  logo6: require("../assets/Images/GoogleOutline.png"),
+  logo7: require("../assets/Images/cart.png"),
+  logo8: require("../assets/Images/tedy.png"),
+  logo9: require("../assets/Images/pc.png"),
+  logo10: require("../assets/Images/Arrow.png"),
+  logo11: require("../assets/Images/Home.png"),
+  logo12: require("../assets/Images/Group.png"),
+  logo13: require("../assets/Images/cart1.png"),
+  logo14: require("../assets/Images/profile.png"),
+  logo15: require("../assets/Images/search.png"),
+  logo16: require("../assets/Images/notification.png"),
+  logo17: require("../assets/Images/show.png"),
+  logo18: require("../assets/Images/Apple.png"),
+  logo19: require("../assets/Images/Google.png"),
+  logobackButton: require("../assets/Images/arrow-left.png"),
+  logoProfileArrow: require("../assets/Images/Arrow(1).png"),
+  logoProfile: require("../assets/Images/unsplash_d2MSDujJl2g.png"),
+  logoSetting: require("../assets/Images/icons8-settings-50.png"),
+};
+
+export default images;

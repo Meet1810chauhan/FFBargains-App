@@ -1,0 +1,167 @@
+types:
+
+type InventoryItem = {
+  color?: string;
+  inventory_id: string;
+  ordered_our_price: string;
+  ordered_store_price: number;
+  quantity: number;
+  size?: string | null;
+  coupon?: string | null;
+};
+
+type Shipment = {
+  inventory_id: string;
+  shipment_id: string;
+  rate_id: string;
+  service: string;
+  carrier: string;
+  rate: string;
+};
+
+type OrderData = {
+  country_code: string;
+  delivery_fee: number;
+  delivery_type: "delivery" | "pickup";
+  discount: number;
+  image?: string;
+  inventories: InventoryItem[];
+  make_an_offer: boolean;
+  phone_number: string | number;
+  pickup_location_id?: string;
+  total_amount: number;
+  total_mrp: number;
+  tax: number;
+  tax_exempt: number;
+  gift_card: number;
+  street_address?: string;
+  street_address_2?: string;
+  city?: string;
+  state?: string;
+  zipcode?: string;
+  country?: string;
+  shipment_id?: string;
+  rate_id?: string;
+  carrier?: string;
+  service?: string;
+  shipments?: Shipment[];
+  payment_type: "cash_on_pickup" | "pre_paid";
+};
+
+
+function placeOrder :
+
+const placeOrderHandler = useCallback(async () => {
+  console.log("placeOrder call ----- ");
+
+  const DeliveryFiltered =
+    DeliveryData?.shipments?.filter((item) => item?.success) || [];
+
+  if (!alldata || alldata?.products.length === 0) {
+    showCustomToast({
+      type: "error",
+      text1: "Add some Products to cart.",
+    });
+    return;
+  }
+
+  if (!selectOption) {
+    console.log("Please Select an option (Delivery or Pickup)");
+    return;
+  }
+
+  if (!userData.address) {
+    showCustomToast({
+      type: "error",
+      text1: "Please add your address to proceed",
+    });
+    navigation.navigate("AddressInfo", { addressId: address?.id });
+    return;
+  }
+
+  // ✅ Create inventories data
+  const OrderDatas: InventoryItem[] = alldata?.products.map((item) => ({
+    inventory_id: item?.product.id,
+    quantity: item.quantity,
+    ordered_store_price: item.product?.amazon_price,
+    ordered_our_price: item.product?.our_price,
+    color: item.product?.color || undefined,
+    size: item.product?.size || null,
+    coupon: item.coupon || null,
+  }));
+
+  console.log("OrderData +_++++\\||| ", OrderDatas);
+
+  // ✅ Get image from the first product
+  let image: string | undefined;
+  for (let item of alldata.products) {
+    if (!image) image = item.product.main_image.split("/").pop();
+    else break;
+  }
+
+  console.log("placeOrder Call Image variable -- ", image);
+
+  // ✅ Prepare Order Data
+  const placeOrderData: OrderData = {
+    country_code: address?.country_code || "+1",
+    delivery_fee: selectOption === "Delivery" ? 3 : 0,
+    delivery_type: selectOption === "Delivery" ? "delivery" : "pickup",
+    discount: alldata?.amounts?.discount || 0,
+    image: image || "no_image.jpg",
+    inventories: OrderDatas,
+    make_an_offer: false,
+    phone_number: address?.phone_number || userData.contact_number,
+    total_amount: alldata?.amounts?.payable_amount || 0,
+    total_mrp: alldata?.amounts?.grand_total || 0,
+    tax: alldata?.amounts?.tax || 0,
+    tax_exempt: alldata?.amounts?.tax_exempt || 0,
+    gift_card: alldata?.amounts?.gift_card || 0,
+    payment_type: "pre_paid",
+  };
+
+  // ✅ If Delivery option is selected, add shipment details
+  if (selectOption === "Delivery") {
+    const shipments: Shipment[] = DeliveryFiltered.map((item) => ({
+      inventory_id: item.inventory_id,
+      shipment_id: item.shipment_id,
+      rate_id: item.rate_id,
+      service: item.service,
+      carrier: item.carrier,
+      rate: item.rate,
+    }));
+
+    placeOrderData.street_address = `${userData.address?.street_address} ${userData?.address?.city} ${userData?.address?.state} ${userData?.address?.zipcode}`;
+    placeOrderData.city = userData?.address?.city;
+    placeOrderData.state = userData?.address?.state;
+    placeOrderData.country = userData?.address?.country;
+    placeOrderData.zipcode = userData?.address?.zipcode;
+    placeOrderData.shipments = shipments;
+  }
+
+  // ✅ Call API
+  try {
+    const response = await placeOrderV1Api(placeOrderData);
+    console.log("Order placed successfully!", response);
+  } catch (error) {
+    console.error("Error placing order:", error);
+  }
+}, [alldata, selectOption, userData, DeliveryData]);
+
+
+// Api :
+
+const placeOrderV1Api = async (placeOrderData: OrderData) => {
+  try {
+    const response = await ApiServicesAxios({
+      method: "POST",
+      apilasturlname: `user/orders/v1`,
+      access_token: userAccessToken,
+      bodyRequest: placeOrderData, // ✅ Send the correctly structured body
+    });
+    console.log("PlaceOrder API Response:", response.payload);
+    return response;
+  } catch (error) {
+    console.log("PlaceOrder API Error:", error);
+    throw error; // ✅ Properly handle errors
+  }
+};
